@@ -1,43 +1,47 @@
+
 $(document).ready(function() {
 
-  getArea();
-  var location;
+
+  var city, state;
   var unitLabel = "°F";
-  function getArea() {
-    $.getJSON("http://ipinfo.io", function(location) {
-
-      $('.location')
-      .append(location.city + ", ")
-      .append(location.region);
-
-      var units = "imperial";
-      getWeather(location.loc, units);
-      location = location.loc;
-      //return weather;
-
-    });
-
-  }
   var now = new Date();
   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var index = now.getDay()
   var day = days[index];
-  function getWeather(loc, units) {
-    lat = loc.split(",")[0] //.toString();
-    lon = loc.split(",")[1] //.toString();
+  getArea();
+
+  function getArea() {
+    $.getJSON("http://ipinfo.io", function(location) {
+
+      city = location.city.replace(/ /g,"_");;
+      state = location.region.replace(/ /g,"_");;
+      getWeekday(city, state);
+    });
+  }
+
+  function getWeekday(city, state) {
     var count = 1;
     target = $('.day').first();
     for (var i = 0; i<6; i++){
-
       target.append(days[(index+count)%7]);
       target = target.next();
       count++;
     }
+    
+    var weather= 'http://api.wunderground.com/api/ae54c990add28add/conditions/q/'+state+'/'+city+'.json';
+    
+    var forecast ='http://api.wunderground.com/api/ae54c990add28add/forecast10day/q/'+state+'/'+city+'.json';
+    $.getJSON(weather, function(weather) {
+      var temperature = weather.version;
+      console.log(temperature)
+      $('#icon').append("<img src='http://openweathermap.org/img/w/" + weather.weather[0].icon + ".png'>");
 
-    
-    var weather= 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + "&units=imperial&APPID=01ffc2b8227e5302ffa7f8555ba7738e";
-    var forecast =     'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + "&units=imperial" +"&APPID=01ffc2b8227e5302ffa7f8555ba7738e";
-    
+      $('#temp').append(temperature.toFixed(0) + " " + unitLabel);
+
+      $('#conditions').append(weather.weather[0].description);
+      
+
+    });
     $.getJSON(forecast, function(forecast) {
       var dates = [];
       for(x in forecast.list){
@@ -91,20 +95,7 @@ $(document).ready(function() {
     
     
     
-    $.getJSON(weather, function(weather) {
-
-      var temperature = weather.main.temp;
-      
-
-
-      $('#icon').append("<img src='http://openweathermap.org/img/w/" + weather.weather[0].icon + ".png'>");
-
-      $('#temp').append(temperature.toFixed(0) + " " + unitLabel);
-
-      $('#conditions').append(weather.weather[0].description);
-      
-
-    });
+    
 
   };
 
