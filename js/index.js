@@ -31,22 +31,6 @@ $(document).ready(function() {
     var weather ='http://api.wunderground.com/api/ae54c990add28add/forecast10day/q/'+state+'/'+city+'.json';
 
     $.getJSON(weather, function(weather) {
-      /*var dates = [];
-      for(x in forecast.list){
-        var date = forecast.list[x].dt_txt;
-        dates.push(date.substring(0,10));
-      }
-      var uniqueDates = [];
-      $.each(dates, function(i, el){
-        if($.inArray(el, uniqueDates) === -1) uniqueDates.push(el);
-      });
-      var index = 0;
-      var target = $('.day').first();
-      for (var i = 0; i<6; i++){
-        target.append('<br>'+uniqueDates[index]);
-        index++;
-        target = target.next();
-      }  */
 
       var number = 0;
       target = $('.day').first();
