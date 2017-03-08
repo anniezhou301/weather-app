@@ -20,30 +20,18 @@ $(document).ready(function() {
   }
 
   function getWeekday(city, state) {
-    var count = 1;
+    var count = 0;
     target = $('.day').first();
-    for (var i = 0; i<6; i++){
+    for (var i = 0; i<7; i++){
       target.append(days[(index+count)%7]);
       target = target.next();
       count++;
     }
-    
-    var weather= 'http://api.wunderground.com/api/ae54c990add28add/conditions/q/'+state+'/'+city+'.json';
-    
-    var forecast ='http://api.wunderground.com/api/ae54c990add28add/forecast10day/q/'+state+'/'+city+'.json';
+
+    var weather ='http://api.wunderground.com/api/ae54c990add28add/forecast10day/q/'+state+'/'+city+'.json';
+
     $.getJSON(weather, function(weather) {
-      var temperature = weather.version;
-      console.log(temperature)
-      $('#icon').append("<img src='http://openweathermap.org/img/w/" + weather.weather[0].icon + ".png'>");
-
-      $('#temp').append(temperature.toFixed(0) + " " + unitLabel);
-
-      $('#conditions').append(weather.weather[0].description);
-      
-
-    });
-    $.getJSON(forecast, function(forecast) {
-      var dates = [];
+      /*var dates = [];
       for(x in forecast.list){
         var date = forecast.list[x].dt_txt;
         dates.push(date.substring(0,10));
@@ -58,33 +46,66 @@ $(document).ready(function() {
         target.append('<br>'+uniqueDates[index]);
         index++;
         target = target.next();
-      }  
+      }  */
 
       var number = 0;
       target = $('.day').first();
-      
-      for (var i = 0; i<6; i++){
-        target.append("<br><img src='http://openweathermap.org/img/w/" + forecast.list[number].weather[0].icon + ".png'>");
-        target.append("<br>"+forecast.list[number].weather[0].description);
-        var high = forecast.list[number].main.temp.toFixed(0);
-        target.append("<br> 9AM: "+ high + unitLabel);
-        number = number + 3
-        var low = forecast.list[number].main.temp.toFixed(0);
-        target.append("<br> 3PM: "+ low + unitLabel);
-        number=number +5;
-        target.append("<br>");
-        if (high<40){
-          target.append("Wear a sweater!");
+      for (var j = 0; j<7; j++){
+
+        var temperature;
+        var icon = weather.forecast.txt_forecast.forecastday[number].icon_url;
+        var weat = weather.forecast.txt_forecast.forecastday[number].fcttext
+        target.append("<br><img src='"+icon+"'>");
+        target.append("<br>"+weat);
+        number +=2;
+        
+        var forecastString = weat.split(" ");
+        for(var i = 0; i<forecastString.length; i++){
+          if (forecastString[i] == "Low" || forecastString[i] == "High"|| forecastString[i] == "upper"){
+            if (forecastString[i+1]!="near"){
+              temperature = forecastString[i+1];
+            }
+            else{
+              temperature = forecastString[i+2];
+            }
+          }
         }
-        else if (high < 50){
-          target.append("Light jacket.")
+        temperature = parseInt(temperature, 10);
+        target.append("<br><br><br>");
+        if (temperature<30){
+          target.append("Winter jacket, scarf, long boots, thick leggings, hat and gloves");
         }
-        else if (high<70){
-          target.append("t-shirt and light leggings");
+        else if (temperature < 40){
+          target.append("Winter jacket, scarf, warm pants, boots")
+        }
+        else if (temperature < 50){
+          target.append("Heavy jacket, jeans")
+        }
+        else if (temperature < 55){
+          target.append("Layer up! Heavy jacket with t-shirt on inside, jeans")
+        }
+        else if (temperature < 60){
+          target.append("Heavy sweatshirt or a thick sweater, jeans")
+        }
+        else if (temperature < 70){
+          target.append("Knit sweater")
+        }
+        else if (temperature < 75){
+          target.append("Light sweater, jacket, or cardigan.")
+        }
+        else if (temperature < 80){
+          target.append("Long sleeved top")
+        }
+        else if (temperature < 90){
+          target.append("t-shirt and shorts, dress")
         }
         else{
-          target.append("Dress!");
+          target.append("Breezy clothes - flowy tee, dress, skirt, shorts")
         }
+      
+        
+        
+
         target = target.next();
 
         
