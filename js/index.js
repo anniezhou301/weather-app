@@ -1,7 +1,14 @@
 
 $(document).ready(function() {
 
+navLinks = document.querySelector('.navNarrow');
+narrowLinks = document.querySelector('.narrowLinks');
 
+navLinks.addEventListener('click', toggle);
+
+function toggle() {
+    narrowLinks.classList.toggle('hidden');
+};
   var city, state;
   var unitLabel = "°F";
   var now = new Date();
@@ -20,10 +27,11 @@ $(document).ready(function() {
   }
 
   function getWeekday(city, state) {
-    var count = 0;
+    var count = 1;
     target = $('.day').first();
+    descTarget = $('.desc').first();
     for (var i = 0; i<7; i++){
-      target.append(days[(index+count)%7]);
+      target.append("<div class='weekday'>" + days[(index+count)%7]+"</div>");
       target = target.next();
       count++;
     }
@@ -32,66 +40,64 @@ $(document).ready(function() {
 
     $.getJSON(weather, function(weather) {
 
-      var number = 0;
+      var number = 1;
+      var otherCount = 1;
       target = $('.day').first();
       for (var j = 0; j<7; j++){
 
         var temperature;
         var icon = weather.forecast.txt_forecast.forecastday[number].icon_url;
-        var weat = weather.forecast.txt_forecast.forecastday[number].fcttext
-        target.append("<br><img src='"+icon+"'>");
-        target.append("<br>"+weat);
-        number +=2;
+        var weat = weather.forecast.txt_forecast.forecastday[number].fcttext;
+
+        var temperature = weather.forecast.simpleforecast.forecastday[otherCount].high.fahrenheit;
+        var tempLow = weather.forecast.simpleforecast.forecastday[otherCount].low.fahrenheit;
+
+        target.append("<div class='icon'><img src='"+icon+"'>");
+        target.append("<div class='high'>"+temperature+unitLabel+"</div>");
         
-        var forecastString = weat.split(" ");
-        for(var i = 0; i<forecastString.length; i++){
-          if (forecastString[i] == "Low" || forecastString[i] == "High"|| forecastString[i] == "upper"){
-            if (forecastString[i+1]!="near"){
-              temperature = forecastString[i+1];
-            }
-            else{
-              temperature = forecastString[i+2];
-            }
-          }
-        }
-        temperature = parseInt(temperature, 10);
-        target.append("<br><br><br>");
-        if (temperature<30){
-          target.append("Winter jacket, scarf, long boots, thick leggings, hat and gloves");
+        target.append("<div class='low'>"+tempLow+unitLabel+"</div>");
+
+
+        
+        number +=2;
+        otherCount++;
+if (temperature<30){
+          target.append("<div class='clothes'>Winter jacket, scarf, long boots, thick leggings, hat and gloves</div>");
         }
         else if (temperature < 40){
-          target.append("Winter jacket, scarf, warm pants, boots")
+          target.append("<div class='clothes'>Winter jacket, scarf, warm pants, boots")
         }
         else if (temperature < 50){
-          target.append("Heavy jacket, jeans")
+          target.append("<div class='clothes'>Heavy jacket, jeans")
         }
         else if (temperature < 55){
-          target.append("Layer up! Heavy jacket with t-shirt on inside, jeans")
+          target.append("<div class='clothes'>Layer up! Heavy jacket with t-shirt on inside, jeans")
         }
         else if (temperature < 60){
-          target.append("Heavy sweatshirt or a thick sweater, jeans")
+          target.append("<div class='clothes'>Heavy sweatshirt or a thick sweater, jeans")
         }
         else if (temperature < 70){
-          target.append("Knit sweater")
+          target.append("<div class='clothes'>Knit sweater")
         }
         else if (temperature < 75){
-          target.append("Light sweater, jacket, or cardigan.")
+          target.append("<div class='clothes'>Light sweater, jacket, or cardigan.")
         }
         else if (temperature < 80){
-          target.append("Long sleeved top")
+          target.append("<div class='clothes'>Long sleeved top")
         }
         else if (temperature < 90){
-          target.append("t-shirt and shorts, dress")
+          target.append("<div class='clothes'>t-shirt and shorts, dress")
         }
         else{
-          target.append("Breezy clothes - flowy tee, dress, skirt, shorts")
+          target.append("<div class='clothes'>Breezy clothes - flowy tee, dress, skirt, shorts")
+        
         }
       
         
-        
+        descTarget.append("<div class='tempDesc'>"+weat+"</div>");
 
         target = target.next();
-
+        descTarget = descTarget.next();
         
 
       }       

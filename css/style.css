@@ -1,5 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body{
   text-align: center;
+  font-family: 'Open Sans', Helvetica;
+  margin: 0;
+  background-color: #f8f9e0;
+}
+
+.brand{
+  float:left;
+  margin-left: 20px;
+  display: inline-block;
+color: #6b81ff;
+  font-size:22px;
+}
+.clothes{
+  display: block;
+}
+
+.description{
+
+  position: absolute;
+  text-align: center;
+  bottom: 0px;
+}
+
+.tempDesc{
+  font-size: 12px;
+  margin-top: 10px;
+  display: block;
+
+  padding: 5px;
+}
+
+.icon {
+  margin: 10px 5px 5px 5px;
+  
+}
+.high{
+  background-color: #666666;
+  color: white;
+}
+
+.low{
+  background-color: #333333;
+  color: white;
+}
+
+.high, .low{
+  display: inline-block;
+  padding: 3px 8px 3px 8px; 
+  margin: 10px 0px 15px 0px;
 }
 
 /*  SECTIONS  */
@@ -7,6 +58,7 @@ body{
   clear: both;
   padding: 0px;
   margin: 0px;
+  
 }
 
 /*  COLUMN SETUP  */
@@ -56,4 +108,69 @@ body{
 @media only screen and (max-width: 480px) {
   .col {  margin: 1% 0 1% 0%; }
   .span_1_of_7, .span_2_of_7, .span_3_of_7, .span_4_of_7, .span_5_of_7, .span_6_of_7, .span_7_of_7 { width: 100%; }
+}
+
+nav {
+  background-color: #fbfcba;
+  overflow: hidden;
+  padding: .7em;
+}
+
+nav a {
+    color: #000;
+    float: right;
+}
+
+nav a:visited {
+    color: #666;
+}
+
+nav .navWide {
+  display: none;
+}
+
+nav .navWide .wideDiv {
+  text-align: center;
+  margin-top:3px;
+}
+
+nav .navWide .wideDiv a {
+  text-decoration: none;
+  display: inline-block;
+  /*Adjust padding to increase/decrease the space between links.*/
+  padding: .2em 2em 0 2em;
+}
+  
+/*Navbar is set to default with the "hamburger" and links on the left
+side of the screen. To move to the right of the screen, simply
+change the three "float: Left;" references to read "float: right;".*/
+nav .navNarrow i {
+  float: right;
+  cursor: pointer;
+  color: #000;
+}
+
+.hidden {
+  display: none;
+}
+
+nav .navNarrow .narrowLinks a {
+  text-decoration: none;
+  display: block;
+  float: right;
+  clear: right;
+  padding: 0.5em 0;
+}
+
+/*Adjust breakpoint as desired to select when the "hamburger" menu is
+replaced by just the links.*/
+@media (min-width: 480px) {
+  
+  nav .navWide {
+    display: block;
+  }
+
+  nav .navNarrow {
+    display: none;
+  }
 }
