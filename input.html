@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app = "scotchTodo">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather App</title>
+	<link rel="stylesheet" href="css/style.css">
+	
+
+</head>
+<body ng-controller="mainController">
+    <div class="container">
+    <nav>
+		<div class="navWide">
+			<div class="brand"><strong>Cotton</strong>On</div>
+			<div class="wideDiv">
+
+				<a href="#">Login</a>
+				<a href="home.html">Input</a>
+				<a href="#">Home</a>
+			</div>
+		</div>
+		<div class="navNarrow">
+			<i class="fa fa-bars fa-2x"></i>
+			<div class="narrowLinks hidden">
+				<a href="#">Login</a>
+				<a href="#">Input</a>
+				<a href="#">Home</a>
+			</div>
+		</nav>
+		<div class="section group">
+			<div class="col span_1_of_7 day line">
+
+			</div>
+			<div class="col span_1_of_7 day line">
+			</div>
+			<div class="col span_1_of_7 day line">
+			</div>
+			<div class="col span_1_of_7 day line">
+			</div>
+			<div class="col span_1_of_7 day line">
+			</div>
+			<div class="col span_1_of_7 day line">
+			</div>
+			<div class="col span_1_of_7 day">
+			</div>
+		</div>
+
+        <!-- HEADER AND TODO COUNT -->
+        <div class="jumbotron text-center">
+            <h1>I'm a Todo-aholic <span class="label label-info">{{ clothes.length }}</span></h1>
+        </div>
+
+        <!-- TODO LIST -->
+        <div id="todo-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+
+                <!-- LOOP OVER THE clothes IN $scope.clothes -->
+                <div class="checkbox" ng-repeat="cloth in clothes">
+                    <label>
+                        <input type="checkbox"> {{ cloth.text }}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FORM TO CREATE clothes -->
+        <div id="clothes-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW clothes -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createClothes()">Add</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    
+		<script src="js/index.js"></script>
+</body>
+	</html>

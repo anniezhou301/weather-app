@@ -4,18 +4,37 @@ body{
   text-align: center;
   font-family: 'Open Sans', Helvetica;
   margin: 0;
-  background-color: #f8f9e0;
+}
+.day{
+  padding:5px 0px 2px 0px;
+  height:500px;
+  
+
+}
+.line{
+  border-right: 2px solid #c1c1c1;
+}
+
+.weekday{
+  font-size:20px;
+  color: #333;
+
+  display: inline-block;
 }
 
 .brand{
   float:left;
   margin-left: 20px;
+  margin-top: -30px;
   display: inline-block;
 color: #6b81ff;
-  font-size:22px;
+  font-size:70px;
+  font-family: Open Sans;
 }
 .clothes{
   display: block;
+  padding: 2px 10px 2px 10px;
+  font-size: 12px;
 }
 
 .description{
@@ -26,16 +45,24 @@ color: #6b81ff;
 }
 
 .tempDesc{
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 10px;
+  margin-left:10px;
   display: block;
-
+  text-align: left;
   padding: 5px;
 }
 
 .icon {
-  margin: 10px 5px 5px 5px;
+  display: inline-block;
   
+}
+
+.icon img{
+
+  margin: 0px 0px -13px 20px;
+  width:40px;
+  height: auto;
 }
 .high{
   background-color: #666666;
@@ -50,14 +77,14 @@ color: #6b81ff;
 .high, .low{
   display: inline-block;
   padding: 3px 8px 3px 8px; 
-  margin: 10px 0px 15px 0px;
+  margin: 15px 0px 15px 0px;
 }
 
 /*  SECTIONS  */
 .section {
   clear: both;
   padding: 0px;
-  margin: 0px;
+  margin:0 1.5% 0 1.5%;
   
 }
 
@@ -65,7 +92,7 @@ color: #6b81ff;
 .col {
   display: block;
   float:left;
-  margin: 1% 0 1% 1.6%;
+  padding: 0 .5% 0 .5%;
 }
 .col:first-child { margin-left: 0; }
 
@@ -108,10 +135,12 @@ color: #6b81ff;
 @media only screen and (max-width: 480px) {
   .col {  margin: 1% 0 1% 0%; }
   .span_1_of_7, .span_2_of_7, .span_3_of_7, .span_4_of_7, .span_5_of_7, .span_6_of_7, .span_7_of_7 { width: 100%; }
+  .line{
+  border-right: none;
+}
 }
 
 nav {
-  background-color: #fbfcba;
   overflow: hidden;
   padding: .7em;
 }
@@ -131,7 +160,7 @@ nav .navWide {
 
 nav .navWide .wideDiv {
   text-align: center;
-  margin-top:3px;
+  margin-top:30px;
 }
 
 nav .navWide .wideDiv a {
