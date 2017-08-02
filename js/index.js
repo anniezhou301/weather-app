@@ -1,4 +1,5 @@
 
+
 $(document).ready(function() {
 
   navLinks = document.querySelector('.navNarrow');

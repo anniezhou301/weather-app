@@ -1,3 +1,3 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/anniezhou301/pen/BWovvj.
+Reads weather for the week, takes clothes and suggests a combination of them based on weather.
 
- 
+No backend -- clothes are hard-coded into JS
